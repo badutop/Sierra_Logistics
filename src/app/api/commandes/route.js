@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 
 // La table `commandes` n'est plus lisible avec la clé anon (RLS) - cette
 // route sert uniquement à afficher la commande déjà validée d'un devis sur
@@ -11,7 +11,7 @@ export async function GET(request) {
     return NextResponse.json({ error: "proformaId manquant" }, { status: 400 });
   }
 
-  const { data: commande, error } = await supabaseAdmin
+  const { data: commande, error } = await getSupabaseAdmin()
     .from("commandes")
     .select("*")
     .eq("proforma_id", proformaId)

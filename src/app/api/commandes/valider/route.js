@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 
 // Réclame un véhicule "disponible" de façon atomique : l'UPDATE conditionnel
 // (status='disponible' -> 'en_course') ne réussit que si personne d'autre ne
 // l'a pris entre-temps, ce qui évite le double-booking en cas de validations
 // concurrentes sur le même camion.
-async function claimVehicle(candidates) {
+async function claimVehicle(supabaseAdmin, candidates) {
   for (const vehicle of candidates) {
     const { data, error } = await supabaseAdmin
       .from("vehicles")
@@ -22,6 +22,7 @@ async function claimVehicle(candidates) {
 }
 
 export async function POST(request) {
+  const supabaseAdmin = getSupabaseAdmin();
   const { quoteId } = await request.json();
 
   if (!quoteId) {
@@ -61,7 +62,7 @@ export async function POST(request) {
   const rest = available.filter((v) => v.model !== quote.type_vehicle);
   const candidates = [...matching, ...rest];
 
-  const vehicle = await claimVehicle(candidates);
+  const vehicle = await claimVehicle(supabaseAdmin, candidates);
 
   if (!vehicle) {
     return NextResponse.json(
