@@ -7,8 +7,6 @@ import { supabase } from "@/lib/supabaseClient";
 import { formatNumber } from "@/lib/pricing";
 import { Button } from "@/components/ui/button";
 
-const CHAUFFEURS = ["Diallo", "Diop", "Ndiaye"];
-
 export function FactureProformaView() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -37,17 +35,14 @@ export function FactureProformaView() {
       setQuote(data);
 
       if (isDefinitive) {
-        const { data: cmd, error: cmdError } = await supabase
-          .from("commandes")
-          .select("*")
-          .eq("proforma_id", quoteId)
-          .maybeSingle();
+        const res = await fetch(`/api/commandes?proformaId=${quoteId}`);
+        const body = await res.json();
 
-        if (cmdError) {
-          setError(cmdError.message);
+        if (!res.ok) {
+          setError(body.error);
           return;
         }
-        setCommande(cmd);
+        setCommande(body.commande);
       }
     })();
   }, [quoteId, isDefinitive]);
@@ -57,17 +52,14 @@ export function FactureProformaView() {
 
     setValidating(true);
     try {
-      const { error: upsertError } = await supabase.from("commandes").upsert(
-        {
-          proforma_id: quoteId,
-          camion_immatriculation: `DK-${Math.floor(1000 + Math.random() * 9000)}-AB`,
-          chauffeur: `Chauffeur ${CHAUFFEURS[Math.floor(Math.random() * CHAUFFEURS.length)]}`,
-          telephone_chauffeur: `+22177${Math.floor(1000000 + Math.random() * 9000000)}`,
-        },
-        { onConflict: "proforma_id" }
-      );
+      const res = await fetch("/api/commandes/valider", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ quoteId }),
+      });
+      const body = await res.json();
 
-      if (upsertError) throw upsertError;
+      if (!res.ok) throw new Error(body.error);
 
       router.push(`/facture-proforma?id=${quoteId}&definitive=true`);
     } catch (err) {

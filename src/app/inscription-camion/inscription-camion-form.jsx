@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { TRUCK_TYPES } from "@/lib/truckTypes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,15 +15,9 @@ import {
 } from "@/components/ui/select";
 import { FormMessage } from "@/components/form-message";
 
-const TRUCK_MODELS = [
-  { value: "camion_rigide", label: "Camion rigide (Porteur)" },
-  { value: "semi_remorque", label: "Semi-remorque" },
-  { value: "camion_citerne", label: "Camion citerne" },
-  { value: "camion_frigorifique", label: "Camion frigorifique" },
-  { value: "camion_benne", label: "Camion benne" },
-  { value: "camion_plateau", label: "Camion plateau" },
-  { value: "camion_grumier", label: "Camion grumier" },
-  { value: "autre", label: "Autre" },
+const STATUS_OPTIONS = [
+  { value: "disponible", label: "Disponible" },
+  { value: "maintenance", label: "En Maintenance" },
 ];
 
 const initialState = {
@@ -30,8 +25,8 @@ const initialState = {
   model: "",
   licensePlate: "",
   fuelType: "Diesel",
-  status: "Disponible",
-  transporteurPhone: "",
+  status: "disponible",
+  contactPhone: "",
 };
 
 export function InscriptionCamionForm() {
@@ -51,7 +46,7 @@ export function InscriptionCamionForm() {
         license_plate: form.licensePlate,
         fuel_type: form.fuelType,
         status: form.status,
-        transporteur_id: null,
+        contact_phone: form.contactPhone,
       },
     ]);
 
@@ -89,9 +84,9 @@ export function InscriptionCamionForm() {
               <SelectValue placeholder="-- Sélectionnez un modèle --" />
             </SelectTrigger>
             <SelectContent>
-              {TRUCK_MODELS.map((m) => (
-                <SelectItem key={m.value} value={m.value}>
-                  {m.label}
+              {TRUCK_TYPES.map((t) => (
+                <SelectItem key={t} value={t}>
+                  {t}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -128,19 +123,22 @@ export function InscriptionCamionForm() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Disponible">Disponible</SelectItem>
-              <SelectItem value="En Maintenance">En Maintenance</SelectItem>
+              {STATUS_OPTIONS.map((s) => (
+                <SelectItem key={s.value} value={s.value}>
+                  {s.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="transporteur-id">N° de Téléphone du Transporteur :</Label>
+          <Label htmlFor="contact-phone">N° de Téléphone du Transporteur :</Label>
           <Input
-            id="transporteur-id"
+            id="contact-phone"
             required
-            value={form.transporteurPhone}
-            onChange={(e) => update("transporteurPhone")(e.target.value)}
+            value={form.contactPhone}
+            onChange={(e) => update("contactPhone")(e.target.value)}
           />
         </div>
 

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import { calculerDevis, VILLES_SENEGAL } from "@/lib/pricing";
+import { TRUCK_TYPES } from "@/lib/truckTypes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,15 +25,6 @@ const TYPES_MARCHANDISE = [
   "Marchandises générales",
   "Produits réfrigérés",
   "Autres",
-];
-
-const TYPES_CAMION = [
-  "Camion benne",
-  "Camion frigorifique",
-  "Camion bâché",
-  "Camion citerne",
-  "Plateau",
-  "Fourgon",
 ];
 
 const initialState = {
@@ -211,7 +203,7 @@ export function DevisForm() {
               <SelectValue placeholder="-- Sélectionnez --" />
             </SelectTrigger>
             <SelectContent>
-              {TYPES_CAMION.map((t) => (
+              {TRUCK_TYPES.map((t) => (
                 <SelectItem key={t} value={t}>
                   {t}
                 </SelectItem>
