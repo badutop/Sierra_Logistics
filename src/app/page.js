@@ -1,69 +1,174 @@
 import Image from "next/image";
+import { CtaButton } from "@/components/cta-button";
+import { LinkCard } from "@/components/link-card";
 
-export default function Home() {
+const SERVICES = [
+  {
+    href: "/transport-routier",
+    image: "/images/service-image-1.png",
+    title: "Transport Routier",
+    description: "Transport sécurisé de marchandises à travers le pays.",
+  },
+  {
+    href: "/entreposage",
+    image: "/images/service-image-2.png",
+    title: "Logistique de Projet",
+    description: "Solutions flexibles pour l'exécution de Projets.",
+  },
+  {
+    href: "/distribution-locale",
+    image: "/images/service-image-3.png",
+    title: "Distribution Locale",
+    description: "Livraison rapide et efficace jusqu'au dernier kilomètre.",
+  },
+];
+
+const FEATURES = [
+  {
+    href: "/fiabilite",
+    image: "/images/feature-image-1.png",
+    title: "Fiabilité & Sécurité",
+    description: "Respect des délais et sécurité de vos marchandises.",
+  },
+  {
+    href: "/technologie",
+    image: "/images/feature-image-2.png",
+    title: "Haute Technologie",
+    description: "Suivi en temps réel et gestion optimisée.",
+  },
+  {
+    href: "/support-client",
+    image: "/images/feature-image-3.png",
+    title: "Support Client",
+    description: "Une équipe dédiée à votre écoute 24/7.",
+  },
+];
+
+const PARTNERS = [
+  { src: "/images/spintech.png", alt: "Logo Spintech" },
+  { src: "/images/smartek.png", alt: "Logo Partenaire 1" },
+  { src: "/images/comsec.png", alt: "Logo Partenaire 2" },
+  { src: "/images/watero.png", alt: "Logo Partenaire 3" },
+  { src: "/images/sierra-logistics.png", alt: "Logo Partenaire 4" },
+];
+
+const TESTIMONIALS = [
+  {
+    photo: "/images/placeholder-testimonial-1.png",
+    quote:
+      "Sierra Logistics a transformé notre chaîne d'approvisionnement. Leur fiabilité et leur professionnalisme sont inégalés au Sénégal. Les livraisons sont toujours à l'heure !",
+    author: "Karim Diallo, Responsable Logistique chez COMSEC",
+  },
+  {
+    photo: "/images/placeholder-testimonial-2.png",
+    quote:
+      "Le service client de Sierra Logistics est exceptionnel. Ils sont toujours disponibles pour répondre à nos questions et gérer nos demandes spéciales rapidement. Un vrai partenaire !",
+    author: "Fatou Ndiaye Sarr, Directrice des Opérations à SpinTech",
+  },
+  {
+    photo: "/images/placeholder-testimonial-1.png",
+    quote:
+      "Leur technologie de suivi nous donne une visibilité complète. Nous savons exactement où se trouvent nos marchandises à tout moment. Très rassurant.",
+    author: "Adama Ndiaye, Directeur de Sierra Logistics",
+  },
+];
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.js
-            </code>{" "}
-            file.
+    <>
+      <section
+        id="hero"
+        className="relative mt-[60px] flex min-h-[65vh] items-center bg-cover bg-center pt-20 text-center text-white"
+        style={{ backgroundImage: "url('/images/hero-background.png')" }}
+      >
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="relative z-10 mx-auto w-[90%] max-w-6xl px-4 py-16 [text-shadow:1px_1px_3px_rgba(0,0,0,0.5)]">
+          <h1 className="text-4xl font-bold leading-tight md:text-6xl">
+            Solutions Logistiques
+            <br />
+            Fiables et Efficaces
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-5 text-lg font-bold md:text-xl">
+            Votre partenaire de confiance pour tous vos besoins de transport
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section id="services" className="bg-muted py-16 text-center">
+        <div className="mx-auto w-[90%] max-w-6xl">
+          <h2 className="section-heading">Nos Services</h2>
+          <div className="mt-10 flex flex-wrap justify-center gap-8">
+            {SERVICES.map((service) => (
+              <LinkCard key={service.href} {...service} />
+            ))}
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section id="pourquoi" className="mt-20 py-16 text-center">
+        <div className="mx-auto w-[90%] max-w-6xl">
+          <h2 className="section-heading">Pourquoi Choisir Sierra Logistics ?</h2>
+          <div className="mt-10 flex flex-wrap justify-center gap-8">
+            {FEATURES.map((feature) => (
+              <LinkCard key={feature.href} {...feature} muted />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="quick-quote" className="mt-16 bg-muted py-16 text-center">
+        <div className="mx-auto w-[90%] max-w-6xl">
+          <h2 className="section-heading">Obtenez Votre Devis Rapidement</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            Besoin d&apos;un devis pour votre transport ou votre solution logistique ?
+            <br />
+            Cliquez ci-dessous pour remplir notre formulaire détaillé et obtenir une
+            proposition personnalisée.
+          </p>
+          <CtaButton href="/devis" className="mt-8">
+            Demander un Devis Maintenant
+          </CtaButton>
+        </div>
+      </section>
+
+      <section id="partners" className="mt-16 py-16 text-center">
+        <div className="mx-auto w-[90%] max-w-6xl">
+          <h2 className="section-heading">Ils nous font confiance</h2>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-8">
+            {PARTNERS.map((partner) => (
+              <Image
+                key={partner.src}
+                src={partner.src}
+                alt={partner.alt}
+                width={150}
+                height={60}
+                className="h-[60px] w-auto max-w-[150px] object-contain opacity-60 transition-opacity hover:opacity-100"
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonials" className="bg-muted py-20 text-center">
+        <div className="mx-auto w-[90%] max-w-6xl">
+          <h2 className="section-heading mb-12">Ce que disent nos clients</h2>
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {TESTIMONIALS.map((t, i) => (
+              <div key={i} className="relative rounded-lg bg-background p-8 shadow-md">
+                <Image
+                  src={t.photo}
+                  alt="Photo Client"
+                  width={80}
+                  height={80}
+                  className="-mt-[70px] mx-auto mb-5 size-20 rounded-full border-4 border-background object-cover shadow-md"
+                />
+                <p className="mb-4 italic text-muted-foreground">&ldquo;{t.quote}&rdquo;</p>
+                <p className="font-semibold text-primary">{t.author}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
