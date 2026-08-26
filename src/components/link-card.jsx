@@ -1,13 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
-export function LinkCard({ href, image, title, description, muted = false }) {
+export function LinkCard({ href, image, title, description, muted = false, className }) {
   return (
     <Link
       href={href}
-      className={`group block h-full max-w-[350px] flex-1 basis-[300px] overflow-hidden rounded-lg shadow-md transition-all hover:-translate-y-2 hover:shadow-xl ${
-        muted ? "bg-muted" : "bg-background"
-      }`}
+      className={cn(
+        "group block h-full max-w-[350px] flex-1 basis-[300px] overflow-hidden rounded-lg shadow-md transition-all hover:-translate-y-2 hover:shadow-xl",
+        muted ? "bg-muted" : "bg-background",
+        className
+      )}
     >
       <Image
         src={image}

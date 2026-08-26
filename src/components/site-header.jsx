@@ -29,6 +29,9 @@ export function SiteHeader() {
             className="h-14 w-auto object-contain"
             priority
           />
+          <span className="hidden text-sm font-medium italic text-muted-foreground sm:inline">
+            Donnez nous la destination
+          </span>
         </Link>
 
         <ul className="hidden items-center gap-8 md:flex">

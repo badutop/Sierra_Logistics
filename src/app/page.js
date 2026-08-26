@@ -10,16 +10,22 @@ const SERVICES = [
     description: "Transport sécurisé de marchandises à travers le pays.",
   },
   {
-    href: "/entreposage",
-    image: "/images/service-image-2.png",
-    title: "Logistique de Projet",
-    description: "Solutions flexibles pour l'exécution de Projets.",
+    href: "/devis",
+    image: "/images/service-transport-conteneur.jpg",
+    title: "Transport de Conteneurs",
+    description: "Transport de conteneurs adapté à vos besoins logistiques.",
   },
   {
-    href: "/distribution-locale",
-    image: "/images/service-image-3.png",
-    title: "Distribution Locale",
-    description: "Livraison rapide et efficace jusqu'au dernier kilomètre.",
+    href: "/devis",
+    image: "/images/service-location-camions.jpg",
+    title: "Location de Camions",
+    description: "Location de camions pour tous vos besoins de transport.",
+  },
+  {
+    href: "/devis",
+    image: "/images/service-bennes-tp.jpg",
+    title: "Approvisionnements par Bennes TP",
+    description: "Bennes TP pour l'approvisionnement de vos chantiers et matériaux.",
   },
 ];
 
@@ -95,11 +101,11 @@ export default function HomePage() {
       </section>
 
       <section id="services" className="bg-muted py-16 text-center">
-        <div className="mx-auto w-[90%] max-w-6xl">
+        <div className="mx-auto w-full max-w-[1600px] px-6 lg:px-10">
           <h2 className="section-heading">Nos Services</h2>
-          <div className="mt-10 flex flex-wrap justify-center gap-8">
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {SERVICES.map((service) => (
-              <LinkCard key={service.href} {...service} />
+              <LinkCard key={service.title} {...service} className="max-w-none" />
             ))}
           </div>
         </div>
