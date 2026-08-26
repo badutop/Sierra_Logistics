@@ -12,8 +12,8 @@ export default function TransportRoutierPage() {
       title="Transport Routier Fiable au Sénégal"
       heroImage="/images/service-image-1.png"
       heading="Solutions de Transport Routier sur Mesure"
-      sideImage="/images/feature-image-1.png"
-      sideImageAlt="Contrôle qualité transport routier"
+      sideImage="/images/service-location-camions.jpg"
+      sideImageAlt="Camions Sierra Logistics prêts pour le transport routier"
       ctaHref="/#quick-quote"
       ctaLabel="Demander un Devis pour le Transport Routier"
     >

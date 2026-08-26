@@ -1,3 +1,5 @@
+import { PageHero } from "@/components/page-hero";
+import { BackHomeLink } from "@/components/back-home-link";
 import { DevisForm } from "./devis-form";
 
 export const metadata = {
@@ -9,17 +11,10 @@ export const metadata = {
 export default function DevisPage() {
   return (
     <>
-      <section
-        className="relative mt-[60px] flex min-h-[45vh] items-center bg-cover bg-center pt-20 text-white"
-        style={{ backgroundImage: "url('/images/service-image-2.png')" }}
-      >
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 mx-auto w-[90%] max-w-6xl px-4 py-10 text-center [text-shadow:1px_1px_3px_rgba(0,0,0,0.5)]">
-          <h1 className="text-3xl font-bold md:text-5xl">Demander un Devis</h1>
-        </div>
-      </section>
+      <PageHero title="Demander un Devis" image="/images/service-image-2.png" />
 
       <section className="mx-auto w-[90%] max-w-3xl py-16">
+        <BackHomeLink />
         <h2 className="section-heading mx-auto block text-center">
           Obtenez un Devis Personnalisé
         </h2>

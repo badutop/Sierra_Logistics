@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { PageHero } from "@/components/page-hero";
 import { CtaButton } from "@/components/cta-button";
+import { BackHomeLink } from "@/components/back-home-link";
 
 export function ServicePage({
   title,
@@ -17,6 +18,7 @@ export function ServicePage({
     <>
       <PageHero title={title} image={heroImage} />
       <section className="mx-auto w-[90%] max-w-6xl py-16 text-left">
+        <BackHomeLink />
         <h2 className="mb-10 text-center text-3xl font-bold text-primary md:text-4xl">
           {heading}
         </h2>

@@ -50,7 +50,7 @@ export function CommanderForm() {
     <>
       <form
         onSubmit={handleSubmit}
-        className="mt-8 space-y-5 rounded-2xl bg-[repeating-linear-gradient(45deg,#e0f0ff,#e0f0ff_10px,#d4ecff_10px,#d4ecff_20px)] p-8 shadow-sm"
+        className="form-card"
       >
         <div className="space-y-2">
           <Label htmlFor="telephone">Téléphone du client :</Label>

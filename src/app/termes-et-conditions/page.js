@@ -1,4 +1,5 @@
 import { PageHero } from "@/components/page-hero";
+import { BackHomeLink } from "@/components/back-home-link";
 
 export const metadata = {
   title: "Termes et Conditions",
@@ -11,6 +12,7 @@ export default function TermesConditionsPage() {
     <>
       <PageHero title="Termes et Conditions" image="/images/feature-image-1.png" />
       <section className="mx-auto w-[90%] max-w-3xl py-16 text-left">
+        <BackHomeLink />
         <div className="space-y-6 text-foreground [&_h2]:mt-8 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-primary [&_li]:ml-5 [&_li]:list-disc [&_p]:leading-relaxed [&_ul]:space-y-2">
           <p className="text-sm text-muted-foreground">
             Dernière mise à jour : 26 août 2026

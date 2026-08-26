@@ -39,7 +39,7 @@ const REALISATIONS = [
   {
     href: "/realisations/empotage-ble",
     image: "/images/realisation-empotage-ble.jpg",
-    title: "Opération d'empotage de blé",
+    title: "Opération d'empotage de blé au port de Dakar",
   },
   {
     href: "/realisations/manutention-ter",
