@@ -8,6 +8,7 @@ export function ServicePage({
   heading,
   sideImage,
   sideImageAlt,
+  sideImages,
   ctaHref,
   ctaLabel,
   children,
@@ -40,13 +41,32 @@ export function ServicePage({
             )}
           </div>
           <div className="min-w-[200px] flex-1">
-            <Image
-              src={sideImage}
-              alt={sideImageAlt}
-              width={500}
-              height={350}
-              className="w-full rounded-lg object-cover shadow-md"
-            />
+            {sideImages ? (
+              <div className="relative pr-8 pb-8">
+                <Image
+                  src={sideImages[0].src}
+                  alt={sideImages[0].alt}
+                  width={500}
+                  height={420}
+                  className="w-full rounded-lg object-cover shadow-md"
+                />
+                <Image
+                  src={sideImages[1].src}
+                  alt={sideImages[1].alt}
+                  width={320}
+                  height={180}
+                  className="absolute -bottom-0 -right-0 w-2/3 rounded-lg border-4 border-background object-cover shadow-xl"
+                />
+              </div>
+            ) : (
+              <Image
+                src={sideImage}
+                alt={sideImageAlt}
+                width={500}
+                height={350}
+                className="w-full rounded-lg object-cover shadow-md"
+              />
+            )}
           </div>
         </div>
       </section>

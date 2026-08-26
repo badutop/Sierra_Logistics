@@ -12,8 +12,10 @@ export default function TechnologiePage() {
       title="La Technologie au Service de Votre Logistique"
       heroImage="/images/feature-image-2.png"
       heading="Suivi en Temps Réel et Gestion Optimisée"
-      sideImage="/images/feature-image-2.png"
-      sideImageAlt="Utilisation d'une tablette pour le suivi logistique"
+      sideImages={[
+        { src: "/images/Sierra-GPS.jpeg", alt: "Suivi GPS en temps réel des véhicules Sierra Logistics" },
+        { src: "/images/Logicielsierra.png", alt: "Plateforme de gestion logistique Sierra Logistics" },
+      ]}
       ctaHref="/devis"
       ctaLabel="Demander un Devis"
     >
