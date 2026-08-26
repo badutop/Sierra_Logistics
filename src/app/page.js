@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Package, Ship, HardHat, Truck } from "lucide-react";
 import { CtaButton } from "@/components/cta-button";
 import { LinkCard } from "@/components/link-card";
 
@@ -26,6 +27,33 @@ const SERVICES = [
     image: "/images/service-bennes-tp.jpg",
     title: "Approvisionnements par Bennes TP",
     description: "Bennes TP pour l'approvisionnement de vos chantiers et matériaux.",
+  },
+];
+
+const REALISATIONS = [
+  {
+    image: "/images/realisation-transfert-cereales.jpg",
+    category: "Manutention",
+    icon: Package,
+    title: "Opération transfert de céréales en sacs",
+  },
+  {
+    image: "/images/realisation-empotage-ble.jpg",
+    category: "Opérations Portuaires",
+    icon: Ship,
+    title: "Opération d'empotage de blé",
+  },
+  {
+    image: "/images/realisation-manutention-ter.jpg",
+    category: "Manutention & Levage",
+    icon: HardHat,
+    title: "Manutention, levage et transfert de matériels sur le TER",
+  },
+  {
+    image: "/images/realisation-transport-arachide.jpg",
+    category: "Transport",
+    icon: Truck,
+    title: "Transport pour la campagne arachidière",
   },
 ];
 
@@ -106,6 +134,41 @@ export default function HomePage() {
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {SERVICES.map((service) => (
               <LinkCard key={service.title} {...service} className="max-w-none" />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="realisations" className="mt-20 py-16 text-center">
+        <div className="mx-auto w-full max-w-[1600px] px-6 lg:px-10">
+          <p className="text-sm font-semibold uppercase tracking-widest text-brand-accent">
+            Les projets déjà réalisés
+          </p>
+          <h2 className="section-heading mt-2">Nos Réalisations</h2>
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {REALISATIONS.map((item) => (
+              <div
+                key={item.title}
+                className="group relative aspect-[4/3] overflow-hidden rounded-lg shadow-md"
+              >
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5 text-left">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-accent px-3 py-1 text-xs font-semibold text-brand-accent-foreground">
+                    <item.icon className="size-3.5" />
+                    {item.category}
+                  </span>
+                  <h3 className="mt-3 text-lg font-semibold leading-snug text-white [text-shadow:1px_1px_3px_rgba(0,0,0,0.6)]">
+                    {item.title}
+                  </h3>
+                </div>
+              </div>
             ))}
           </div>
         </div>
