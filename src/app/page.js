@@ -79,11 +79,12 @@ const FEATURES = [
 ];
 
 const PARTNERS = [
-  { src: "/images/spintech.png", alt: "Logo Spintech" },
-  { src: "/images/smartek.png", alt: "Logo Partenaire 1" },
-  { src: "/images/comsec.png", alt: "Logo Partenaire 2" },
-  { src: "/images/watero.png", alt: "Logo Partenaire 3" },
-  { src: "/images/sierra-logistics.png", alt: "Logo Partenaire 4" },
+  { src: "/images/partner-eiffage.png", alt: "Logo Eiffage" },
+  { src: "/images/partner-enda.png", alt: "Logo Enda Énergie" },
+  { src: "/images/partner-fks-industries.png", alt: "Logo FKS Industries" },
+  { src: "/images/partner-grand-moulin-dakar.png", alt: "Logo Grand Moulin de Dakar" },
+  { src: "/images/partner-its-senegal.png", alt: "Logo ITS Sénégal" },
+  { src: "/images/partner-nma-sanders.png", alt: "Logo NMA Sanders" },
 ];
 
 const TESTIMONIALS = [
@@ -211,7 +212,7 @@ export default function HomePage() {
                 alt={partner.alt}
                 width={150}
                 height={60}
-                className="h-[60px] w-auto max-w-[150px] object-contain opacity-60 transition-opacity hover:opacity-100"
+                className="h-[60px] w-auto max-w-[150px] object-contain"
               />
             ))}
           </div>
