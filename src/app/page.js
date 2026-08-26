@@ -94,12 +94,11 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 mx-auto w-[90%] max-w-6xl px-4 py-16 [text-shadow:1px_1px_3px_rgba(0,0,0,0.5)]">
           <h1 className="text-4xl font-bold leading-tight md:text-6xl">
-            Solutions Logistiques
-            <br />
-            Fiables et Efficaces
+            <span className="text-brand-accent">Donnez-nous</span> la destination.
           </h1>
-          <p className="mt-5 text-lg font-bold md:text-xl">
-            Votre partenaire de confiance pour tous vos besoins de transport
+          <p className="mx-auto mt-5 max-w-2xl text-lg font-bold md:text-xl">
+            Nous nous chargeons du reste : transport, entreposage et distribution,
+            partout au Sénégal et en Afrique de l&apos;Ouest.
           </p>
         </div>
       </section>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Phone, Mail, MapPin } from "lucide-react";
 
 const CONTACT_INFO = [
@@ -35,13 +36,19 @@ export function SiteFooter() {
       </div>
       <div className="bg-neutral-600 py-3 text-center">
         <div className="mx-auto w-[90%] max-w-6xl space-x-2.5">
-          <a href="#" className="text-neutral-100 transition-colors hover:text-brand-accent">
+          <Link
+            href="/politique-de-confidentialite"
+            className="text-neutral-100 transition-colors hover:text-brand-accent"
+          >
             Politique de confidentialité
-          </a>
+          </Link>
           <span>|</span>
-          <a href="#" className="text-neutral-100 transition-colors hover:text-brand-accent">
+          <Link
+            href="/termes-et-conditions"
+            className="text-neutral-100 transition-colors hover:text-brand-accent"
+          >
             Termes et Conditions
-          </a>
+          </Link>
         </div>
       </div>
     </footer>
