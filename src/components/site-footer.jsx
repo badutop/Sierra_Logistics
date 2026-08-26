@@ -17,7 +17,7 @@ const CONTACT_INFO = [
 export function SiteFooter() {
   return (
     <footer className="text-sm text-neutral-100">
-      <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1.5 bg-brand-accent px-4 py-2.5 text-center text-white">
+      <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1.5 bg-brand-accent px-4 py-2.5 text-center text-black">
         {CONTACT_INFO.map((item) => (
           <a
             key={item.value}

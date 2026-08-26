@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { CtaButton } from "@/components/cta-button";
 import { LinkCard } from "@/components/link-card";
 
@@ -10,19 +11,19 @@ const SERVICES = [
     description: "Transport sécurisé de marchandises à travers le pays.",
   },
   {
-    href: "/devis",
+    href: "/transport-conteneurs",
     image: "/images/service-transport-conteneur.jpg",
     title: "Transport de Conteneurs",
     description: "Transport de conteneurs adapté à vos besoins logistiques.",
   },
   {
-    href: "/devis",
+    href: "/location-camions",
     image: "/images/service-location-camions.jpg",
     title: "Location de Camions",
     description: "Location de camions pour tous vos besoins de transport.",
   },
   {
-    href: "/devis",
+    href: "/bennes-tp",
     image: "/images/service-bennes-tp.jpg",
     title: "Approvisionnements par Bennes TP",
     description: "Bennes TP pour l'approvisionnement de vos chantiers et matériaux.",
@@ -31,18 +32,22 @@ const SERVICES = [
 
 const REALISATIONS = [
   {
+    href: "/realisations/transfert-cereales",
     image: "/images/realisation-transfert-cereales.jpg",
     title: "Opération transfert de céréales en sacs",
   },
   {
+    href: "/realisations/empotage-ble",
     image: "/images/realisation-empotage-ble.jpg",
     title: "Opération d'empotage de blé",
   },
   {
+    href: "/realisations/manutention-ter",
     image: "/images/realisation-manutention-ter.jpg",
     title: "Manutention, levage et transfert de matériels sur le TER",
   },
   {
+    href: "/realisations/transport-arachide",
     image: "/images/realisation-transport-arachide.jpg",
     title: "Transport pour la campagne arachidière",
   },
@@ -118,9 +123,10 @@ export default function HomePage() {
           <h2 className="section-heading mt-2">Nos Réalisations</h2>
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {REALISATIONS.map((item) => (
-              <div
+              <Link
                 key={item.title}
-                className="group relative aspect-[4/3] overflow-hidden rounded-lg shadow-md"
+                href={item.href}
+                className="group relative block aspect-[4/3] overflow-hidden rounded-lg shadow-md"
               >
                 <Image
                   src={item.image}
@@ -135,7 +141,7 @@ export default function HomePage() {
                     {item.title}
                   </h3>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
