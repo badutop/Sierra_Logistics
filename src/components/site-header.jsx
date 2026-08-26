@@ -19,14 +19,14 @@ export function SiteHeader() {
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <nav className="mx-auto flex w-[90%] max-w-6xl items-center justify-between py-2.5">
+      <nav className="mx-auto flex w-[90%] max-w-6xl items-center justify-between py-0.5">
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="/images/sierra.png"
+            src="/images/sierra-logistics-logo-header.png"
             alt="Sierra Logistics"
-            width={160}
-            height={50}
-            className="h-10 w-auto object-contain"
+            width={187}
+            height={95}
+            className="h-14 w-auto object-contain"
             priority
           />
         </Link>
