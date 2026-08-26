@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Package, Ship, HardHat, Truck, Phone, Mail, MapPin } from "lucide-react";
 import { CtaButton } from "@/components/cta-button";
 import { LinkCard } from "@/components/link-card";
 
@@ -33,26 +32,18 @@ const SERVICES = [
 const REALISATIONS = [
   {
     image: "/images/realisation-transfert-cereales.jpg",
-    category: "Manutention",
-    icon: Package,
     title: "Opération transfert de céréales en sacs",
   },
   {
     image: "/images/realisation-empotage-ble.jpg",
-    category: "Opérations Portuaires",
-    icon: Ship,
     title: "Opération d'empotage de blé",
   },
   {
     image: "/images/realisation-manutention-ter.jpg",
-    category: "Manutention & Levage",
-    icon: HardHat,
     title: "Manutention, levage et transfert de matériels sur le TER",
   },
   {
     image: "/images/realisation-transport-arachide.jpg",
-    category: "Transport",
-    icon: Truck,
     title: "Transport pour la campagne arachidière",
   },
 ];
@@ -85,27 +76,6 @@ const PARTNERS = [
   { src: "/images/partner-grand-moulin-dakar.png", alt: "Logo Grand Moulin de Dakar" },
   { src: "/images/partner-its-senegal.png", alt: "Logo ITS Sénégal" },
   { src: "/images/partner-nma-sanders.png", alt: "Logo NMA Sanders" },
-];
-
-const CONTACT_INFO = [
-  {
-    icon: Phone,
-    label: "Téléphone",
-    value: "+221 77 143 71 71",
-    href: "tel:+221771437171",
-  },
-  {
-    icon: Mail,
-    label: "Email",
-    value: "contact@sierra-logistics.com",
-    href: "mailto:contact@sierra-logistics.com",
-  },
-  {
-    icon: MapPin,
-    label: "Localisation",
-    value: "Diamniadio, Sénégal",
-    href: "https://www.google.com/maps/search/?api=1&query=Diamniadio+S%C3%A9n%C3%A9gal",
-  },
 ];
 
 export default function HomePage() {
@@ -161,11 +131,7 @@ export default function HomePage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-5 text-left">
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-accent px-3 py-1 text-xs font-semibold text-brand-accent-foreground">
-                    <item.icon className="size-3.5" />
-                    {item.category}
-                  </span>
-                  <h3 className="mt-3 text-lg font-semibold leading-snug text-white [text-shadow:1px_1px_3px_rgba(0,0,0,0.6)]">
+                  <h3 className="text-lg font-semibold leading-snug text-white [text-shadow:1px_1px_3px_rgba(0,0,0,0.6)]">
                     {item.title}
                   </h3>
                 </div>
@@ -214,36 +180,6 @@ export default function HomePage() {
                 height={60}
                 className="h-[60px] w-auto max-w-[150px] object-contain"
               />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" className="bg-muted py-16 text-center">
-        <div className="mx-auto w-[90%] max-w-6xl">
-          <p className="text-sm font-semibold uppercase tracking-widest text-brand-accent">
-            À votre écoute
-          </p>
-          <h2 className="section-heading mt-2">Nous Contacter</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Une question, un projet de transport ou de logistique ? Notre équipe vous
-            répond rapidement.
-          </p>
-          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
-            {CONTACT_INFO.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                target={item.href.startsWith("http") ? "_blank" : undefined}
-                rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="group flex flex-col items-center gap-3 rounded-lg bg-background p-8 shadow-md transition-all hover:-translate-y-1 hover:shadow-xl"
-              >
-                <span className="flex size-14 items-center justify-center rounded-full bg-brand-accent text-brand-accent-foreground">
-                  <item.icon className="size-6" />
-                </span>
-                <p className="font-semibold text-primary">{item.label}</p>
-                <p className="text-muted-foreground">{item.value}</p>
-              </a>
             ))}
           </div>
         </div>
