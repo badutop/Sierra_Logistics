@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FormMessage } from "@/components/form-message";
+import { RequiredMark } from "@/components/required-mark";
 
 const STATUS_OPTIONS = [
   { value: "disponible", label: "Disponible" },
@@ -67,8 +68,14 @@ export function InscriptionCamionForm() {
         onSubmit={handleSubmit}
         className="form-card"
       >
+        <p className="text-sm text-muted-foreground">
+          <RequiredMark /> Champs obligatoires
+        </p>
+
         <div className="space-y-2">
-          <Label htmlFor="truck-name">Nom du Propriétaire :</Label>
+          <Label htmlFor="truck-name">
+            Nom du Propriétaire <RequiredMark />
+          </Label>
           <Input
             id="truck-name"
             required
@@ -78,7 +85,9 @@ export function InscriptionCamionForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="truck-model">Modèle du Camion :</Label>
+          <Label htmlFor="truck-model">
+            Modèle du Camion <RequiredMark />
+          </Label>
           <Select value={form.model} onValueChange={update("model")} required>
             <SelectTrigger id="truck-model" className="w-full bg-background">
               <SelectValue placeholder="-- Sélectionnez un modèle --" />
@@ -94,7 +103,9 @@ export function InscriptionCamionForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="truck-plate">Numéro d&apos;Immatriculation :</Label>
+          <Label htmlFor="truck-plate">
+            Numéro d&apos;Immatriculation <RequiredMark />
+          </Label>
           <Input
             id="truck-plate"
             required
@@ -104,7 +115,9 @@ export function InscriptionCamionForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="fuel-type">Type de Carburant :</Label>
+          <Label htmlFor="fuel-type">
+            Type de Carburant <RequiredMark />
+          </Label>
           <Select value={form.fuelType} onValueChange={update("fuelType")} required>
             <SelectTrigger id="fuel-type" className="w-full bg-background">
               <SelectValue />
@@ -117,7 +130,9 @@ export function InscriptionCamionForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="status">Statut :</Label>
+          <Label htmlFor="status">
+            Statut <RequiredMark />
+          </Label>
           <Select value={form.status} onValueChange={update("status")} required>
             <SelectTrigger id="status" className="w-full bg-background">
               <SelectValue />
@@ -133,7 +148,9 @@ export function InscriptionCamionForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="contact-phone">N° de Téléphone du Transporteur :</Label>
+          <Label htmlFor="contact-phone">
+            N° de Téléphone du Transporteur <RequiredMark />
+          </Label>
           <Input
             id="contact-phone"
             required

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormMessage } from "@/components/form-message";
+import { RequiredMark } from "@/components/required-mark";
 
 export function CommanderForm() {
   const router = useRouter();
@@ -53,7 +54,9 @@ export function CommanderForm() {
         className="form-card"
       >
         <div className="space-y-2">
-          <Label htmlFor="telephone">Téléphone du client :</Label>
+          <Label htmlFor="telephone">
+            Téléphone du client <RequiredMark />
+          </Label>
           <Input
             id="telephone"
             placeholder="+221..."

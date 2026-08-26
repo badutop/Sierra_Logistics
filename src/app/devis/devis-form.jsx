@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FormMessage } from "@/components/form-message";
+import { RequiredMark } from "@/components/required-mark";
 
 const TYPES_MARCHANDISE = [
   "Produits agricoles",
@@ -52,7 +53,7 @@ export function DevisForm() {
     e.preventDefault();
     setError(null);
 
-    if (!form.villeDepart || !form.villeArrivee || !form.typeCamion) {
+    if (!form.villeDepart || !form.villeArrivee || !form.typeCamion || !form.poids) {
       setError("Veuillez compléter tous les champs requis.");
       return;
     }
@@ -110,13 +111,21 @@ export function DevisForm() {
         onSubmit={handleSubmit}
         className="form-card"
       >
+        <p className="text-sm text-muted-foreground">
+          <RequiredMark /> Champs obligatoires
+        </p>
+
         <div className="space-y-2">
-          <Label htmlFor="nom">Nom Complet :</Label>
+          <Label htmlFor="nom">
+            Nom Complet <RequiredMark />
+          </Label>
           <Input id="nom" required value={form.nom} onChange={(e) => update("nom")(e.target.value)} />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="email">Adresse Email :</Label>
+          <Label htmlFor="email">
+            Adresse Email <RequiredMark />
+          </Label>
           <Input
             id="email"
             type="email"
@@ -127,7 +136,9 @@ export function DevisForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="telephone">Téléphone :</Label>
+          <Label htmlFor="telephone">
+            Téléphone <RequiredMark />
+          </Label>
           <Input
             id="telephone"
             type="tel"
@@ -138,7 +149,9 @@ export function DevisForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="ville-depart">Ville de Départ :</Label>
+          <Label htmlFor="ville-depart">
+            Ville de Départ <RequiredMark />
+          </Label>
           <Select value={form.villeDepart} onValueChange={update("villeDepart")} required>
             <SelectTrigger id="ville-depart" className="w-full bg-background">
               <SelectValue placeholder="-- Sélectionner une ville --" />
@@ -154,7 +167,9 @@ export function DevisForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="ville-arrivee">Ville d&apos;Arrivée :</Label>
+          <Label htmlFor="ville-arrivee">
+            Ville d&apos;Arrivée <RequiredMark />
+          </Label>
           <Select value={form.villeArrivee} onValueChange={update("villeArrivee")} required>
             <SelectTrigger id="ville-arrivee" className="w-full bg-background">
               <SelectValue placeholder="-- Sélectionner une ville --" />
@@ -170,7 +185,9 @@ export function DevisForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="type-marchandise">Type de Marchandise :</Label>
+          <Label htmlFor="type-marchandise">
+            Type de Marchandise <RequiredMark />
+          </Label>
           <Select value={form.typeMarchandise} onValueChange={update("typeMarchandise")} required>
             <SelectTrigger id="type-marchandise" className="w-full bg-background">
               <SelectValue placeholder="-- Sélectionnez --" />
@@ -186,10 +203,13 @@ export function DevisForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="poids">Poids estimé (kg)</Label>
+          <Label htmlFor="poids">
+            Poids estimé (kg) <RequiredMark />
+          </Label>
           <Input
             id="poids"
             type="number"
+            required
             placeholder="Ex: 150"
             value={form.poids}
             onChange={(e) => update("poids")(e.target.value)}
@@ -197,7 +217,9 @@ export function DevisForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="type-camion">Type de Camion :</Label>
+          <Label htmlFor="type-camion">
+            Type de Camion <RequiredMark />
+          </Label>
           <Select value={form.typeCamion} onValueChange={update("typeCamion")} required>
             <SelectTrigger id="type-camion" className="w-full bg-background">
               <SelectValue placeholder="-- Sélectionnez --" />
@@ -213,7 +235,9 @@ export function DevisForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="date-expedition">Date d&apos;Expédition :</Label>
+          <Label htmlFor="date-expedition">
+            Date d&apos;Expédition <RequiredMark />
+          </Label>
           <Input
             id="date-expedition"
             type="date"
