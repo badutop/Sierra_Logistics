@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Package, Ship, HardHat, Truck } from "lucide-react";
+import { Package, Ship, HardHat, Truck, Phone, Mail, MapPin } from "lucide-react";
 import { CtaButton } from "@/components/cta-button";
 import { LinkCard } from "@/components/link-card";
 
@@ -87,24 +87,24 @@ const PARTNERS = [
   { src: "/images/partner-nma-sanders.png", alt: "Logo NMA Sanders" },
 ];
 
-const TESTIMONIALS = [
+const CONTACT_INFO = [
   {
-    photo: "/images/placeholder-testimonial-1.png",
-    quote:
-      "Sierra Logistics a transformé notre chaîne d'approvisionnement. Leur fiabilité et leur professionnalisme sont inégalés au Sénégal. Les livraisons sont toujours à l'heure !",
-    author: "Karim Diallo, Responsable Logistique chez COMSEC",
+    icon: Phone,
+    label: "Téléphone",
+    value: "+221 77 143 71 71",
+    href: "tel:+221771437171",
   },
   {
-    photo: "/images/placeholder-testimonial-2.png",
-    quote:
-      "Le service client de Sierra Logistics est exceptionnel. Ils sont toujours disponibles pour répondre à nos questions et gérer nos demandes spéciales rapidement. Un vrai partenaire !",
-    author: "Fatou Ndiaye Sarr, Directrice des Opérations à SpinTech",
+    icon: Mail,
+    label: "Email",
+    value: "contact@sierra-logistics.com",
+    href: "mailto:contact@sierra-logistics.com",
   },
   {
-    photo: "/images/placeholder-testimonial-1.png",
-    quote:
-      "Leur technologie de suivi nous donne une visibilité complète. Nous savons exactement où se trouvent nos marchandises à tout moment. Très rassurant.",
-    author: "Adama Ndiaye, Directeur de Sierra Logistics",
+    icon: MapPin,
+    label: "Localisation",
+    value: "Diamniadio, Sénégal",
+    href: "https://www.google.com/maps/search/?api=1&query=Diamniadio+S%C3%A9n%C3%A9gal",
   },
 ];
 
@@ -219,22 +219,31 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="testimonials" className="bg-muted py-16 text-center">
+      <section id="contact" className="bg-muted py-16 text-center">
         <div className="mx-auto w-[90%] max-w-6xl">
-          <h2 className="section-heading mb-12">Ce que disent nos clients</h2>
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {TESTIMONIALS.map((t, i) => (
-              <div key={i} className="relative rounded-lg bg-background p-8 shadow-md">
-                <Image
-                  src={t.photo}
-                  alt="Photo Client"
-                  width={80}
-                  height={80}
-                  className="-mt-[70px] mx-auto mb-5 size-20 rounded-full border-4 border-background object-cover shadow-md"
-                />
-                <p className="mb-4 italic text-muted-foreground">&ldquo;{t.quote}&rdquo;</p>
-                <p className="font-semibold text-primary">{t.author}</p>
-              </div>
+          <p className="text-sm font-semibold uppercase tracking-widest text-brand-accent">
+            À votre écoute
+          </p>
+          <h2 className="section-heading mt-2">Nous Contacter</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            Une question, un projet de transport ou de logistique ? Notre équipe vous
+            répond rapidement.
+          </p>
+          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
+            {CONTACT_INFO.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                target={item.href.startsWith("http") ? "_blank" : undefined}
+                rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="group flex flex-col items-center gap-3 rounded-lg bg-background p-8 shadow-md transition-all hover:-translate-y-1 hover:shadow-xl"
+              >
+                <span className="flex size-14 items-center justify-center rounded-full bg-brand-accent text-brand-accent-foreground">
+                  <item.icon className="size-6" />
+                </span>
+                <p className="font-semibold text-primary">{item.label}</p>
+                <p className="text-muted-foreground">{item.value}</p>
+              </a>
             ))}
           </div>
         </div>
