@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -49,7 +50,14 @@ const CLIENT_LINKS = [
 const NAV_LINK_CLASS =
   "relative font-semibold text-muted-foreground transition-colors hover:text-brand-accent after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-brand-accent after:transition-all after:duration-300 hover:after:w-full";
 
+const DESKTOP_SUBITEM_CLASS =
+  "block border-l-2 border-l-transparent px-4 py-2 text-sm leading-snug font-medium whitespace-normal text-muted-foreground transition-colors hover:border-l-brand-accent hover:bg-muted hover:text-brand-accent";
+
+const MOBILE_SUBITEM_CLASS =
+  "block rounded-md border-l-4 border-l-transparent px-4 py-2.5 text-sm leading-snug font-medium text-muted-foreground transition-colors active:bg-brand-accent/10 active:text-brand-accent";
+
 export function SiteHeader() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMobileMenu, setOpenMobileMenu] = useState(null);
 
@@ -83,7 +91,11 @@ export function SiteHeader() {
                     <li key={item.href}>
                       <Link
                         href={item.href}
-                        className="block px-4 py-2 text-sm leading-snug font-medium whitespace-normal text-muted-foreground hover:bg-muted hover:text-brand-accent"
+                        className={cn(
+                          DESKTOP_SUBITEM_CLASS,
+                          pathname === item.href &&
+                            "border-l-brand-accent bg-brand-accent/10 font-semibold text-brand-accent"
+                        )}
                       >
                         {item.label}
                       </Link>
@@ -111,7 +123,12 @@ export function SiteHeader() {
                     className={
                       link.primary
                         ? "block whitespace-nowrap rounded-md bg-brand-accent px-3 py-2 text-center text-sm font-semibold text-brand-accent-foreground transition-opacity hover:opacity-90"
-                        : "block whitespace-nowrap px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-brand-accent"
+                        : cn(
+                            DESKTOP_SUBITEM_CLASS,
+                            "whitespace-nowrap",
+                            pathname === link.href &&
+                              "border-l-brand-accent bg-brand-accent/10 font-semibold text-brand-accent"
+                          )
                     }
                   >
                     {link.label}
@@ -136,17 +153,28 @@ export function SiteHeader() {
           {NAV_LINKS.map((link) =>
             link.items ? (
               <li key={link.href} className="border-b">
-                <div className="flex items-center justify-between">
+                <div
+                  className={cn(
+                    "flex items-center justify-between transition-colors",
+                    openMobileMenu === link.href && "bg-brand-accent/10"
+                  )}
+                >
                   <Link
                     href={link.href}
-                    className="flex-1 px-5 py-3 font-semibold text-muted-foreground hover:text-brand-accent"
+                    className={cn(
+                      "flex-1 px-5 py-3 font-semibold transition-colors active:text-brand-accent",
+                      openMobileMenu === link.href ? "text-brand-accent" : "text-muted-foreground"
+                    )}
                     onClick={() => setMobileOpen(false)}
                   >
                     {link.label}
                   </Link>
                   <button
                     aria-label={`Afficher les pages ${link.label}`}
-                    className="px-4 py-3 text-muted-foreground"
+                    className={cn(
+                      "px-4 py-3",
+                      openMobileMenu === link.href ? "text-brand-accent" : "text-muted-foreground"
+                    )}
                     onClick={() =>
                       setOpenMobileMenu((k) => (k === link.href ? null : link.href))
                     }
@@ -165,7 +193,12 @@ export function SiteHeader() {
                       <li key={item.href}>
                         <Link
                           href={item.href}
-                          className="block rounded-md px-4 py-2 text-sm leading-snug font-medium text-muted-foreground hover:bg-background hover:text-brand-accent"
+                          className={cn(
+                            MOBILE_SUBITEM_CLASS,
+                            "bg-background",
+                            pathname === item.href &&
+                              "border-l-brand-accent bg-brand-accent/10 font-semibold text-brand-accent"
+                          )}
                           onClick={() => setMobileOpen(false)}
                         >
                           {item.label}
@@ -179,7 +212,7 @@ export function SiteHeader() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="block border-b px-5 py-3 font-semibold text-muted-foreground hover:text-brand-accent"
+                  className="block border-b px-5 py-3 font-semibold text-muted-foreground transition-colors active:bg-brand-accent/10 active:text-brand-accent"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}
@@ -189,7 +222,10 @@ export function SiteHeader() {
           )}
           <li>
             <button
-              className="flex w-full items-center justify-between px-5 py-3 font-semibold text-muted-foreground"
+              className={cn(
+                "flex w-full items-center justify-between px-5 py-3 font-semibold transition-colors",
+                openMobileMenu === "client" ? "bg-brand-accent/10 text-brand-accent" : "text-muted-foreground"
+              )}
               onClick={() => setOpenMobileMenu((k) => (k === "client" ? null : "client"))}
             >
               Espace Client
@@ -209,7 +245,12 @@ export function SiteHeader() {
                       className={
                         link.primary
                           ? "block rounded-md bg-brand-accent px-4 py-2.5 text-center text-sm font-semibold text-brand-accent-foreground"
-                          : "block rounded-md px-4 py-2.5 text-sm font-medium text-muted-foreground hover:bg-background hover:text-brand-accent"
+                          : cn(
+                              MOBILE_SUBITEM_CLASS,
+                              "bg-background",
+                              pathname === link.href &&
+                                "border-l-brand-accent bg-brand-accent/10 font-semibold text-brand-accent"
+                            )
                       }
                       onClick={() => setMobileOpen(false)}
                     >
