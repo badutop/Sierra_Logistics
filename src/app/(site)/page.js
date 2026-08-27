@@ -147,11 +147,11 @@ export default function HomePage() {
       </section>
 
       <section id="pourquoi" className="py-10 text-center">
-        <div className="mx-auto w-[90%] max-w-6xl">
+        <div className="mx-auto w-full max-w-[1600px] px-6 lg:px-10">
           <h2 className="section-heading">Pourquoi Choisir Sierra Logistics ?</h2>
-          <div className="mt-10 flex flex-wrap justify-center gap-8">
+          <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-3">
             {FEATURES.map((feature) => (
-              <LinkCard key={feature.href} {...feature} muted />
+              <LinkCard key={feature.href} {...feature} muted className="max-w-none" />
             ))}
           </div>
         </div>
