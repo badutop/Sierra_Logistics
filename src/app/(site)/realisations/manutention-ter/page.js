@@ -3,7 +3,7 @@ import { ServicePage } from "@/components/service-page";
 export const metadata = {
   title: "Manutention, Levage et Transfert de Matériels sur le TER",
   description:
-    "Retour sur une opération de manutention, levage et transfert de matériels menée par Sierra Logistics dans le cadre des travaux du TER.",
+    "Retour sur des opérations de manutention, levage et transfert de matériels menées par Sierra Logistics dans le cadre des travaux du TER.",
 };
 
 export default function ManutentionTerPage() {
@@ -18,13 +18,13 @@ export default function ManutentionTerPage() {
       ctaLabel="Demander un Devis pour une Opération Similaire"
     >
       <p>
-        Sierra Logistics a participé à une opération de manutention, de levage et de
+        Sierra Logistics a participé à des opérations de manutention, de levage et de
         transfert de matériels dans le cadre des travaux d&apos;infrastructure du{" "}
         <strong>TER</strong> (Train Express Régional) de Dakar. Nos équipes ont assuré
         la mobilisation d&apos;engins et de personnel qualifié pour la manutention de
         matériaux directement sur le site du chantier.
       </p>
-      <p>Notre intervention a couvert :</p>
+      <p>Nos interventions ont couvert :</p>
       <ul>
         <li>Le levage et la manutention de matériaux lourds (ferraille, matériels)</li>
         <li>Le transfert de matériels sur un site de chantier ferroviaire</li>

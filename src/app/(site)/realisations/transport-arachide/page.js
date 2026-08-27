@@ -24,7 +24,7 @@ export default function TransportArachidePage() {
         d&apos;exportation. Sierra Logistics met sa flotte et son expérience au
         service de cette période stratégique pour l&apos;économie du pays.
       </p>
-      <p>Notre intervention a couvert :</p>
+      <p>Nos interventions couvrent :</p>
       <ul>
         <li>La collecte des récoltes auprès des points d&apos;achat</li>
         <li>Le transport vers les huileries et unités de transformation</li>

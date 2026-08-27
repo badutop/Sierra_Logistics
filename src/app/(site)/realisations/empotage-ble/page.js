@@ -3,7 +3,7 @@ import { ServicePage } from "@/components/service-page";
 export const metadata = {
   title: "Opération d'Empotage de Blé",
   description:
-    "Retour sur une opération d'empotage de blé au Port Autonome de Dakar menée par Sierra Logistics.",
+    "Retour sur des opérations d'empotage de blé au Port Autonome de Dakar menées par Sierra Logistics.",
 };
 
 export default function EmpotageBlePage() {
@@ -18,13 +18,13 @@ export default function EmpotageBlePage() {
       ctaLabel="Demander un Devis pour une Opération Similaire"
     >
       <p>
-        Dans le cadre d&apos;une opération d&apos;empotage de blé au{" "}
+        Dans le cadre de plusieurs opérations d&apos;empotage de blé au{" "}
         <strong>Port Autonome de Dakar</strong>, les équipes de Sierra Logistics ont
         assuré la réception du blé en vrac directement depuis la cale des navires,
         pour le charger dans des bennes et remorques dédiées au transport vers les
         minoteries.
       </p>
-      <p>Notre intervention a couvert :</p>
+      <p>Nos interventions ont couvert :</p>
       <ul>
         <li>La réception de marchandises en vrac en zone portuaire</li>
         <li>L&apos;empotage sous portique et grue de manutention portuaire</li>
