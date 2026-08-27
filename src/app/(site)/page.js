@@ -103,7 +103,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="services" className="bg-muted py-16 text-center">
+      <section id="services" className="bg-muted py-10 text-center">
         <div className="mx-auto w-full max-w-[1600px] px-6 lg:px-10">
           <h2 className="section-heading">Nos Services</h2>
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -114,7 +114,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="realisations" className="py-16 text-center">
+      <section id="realisations" className="py-10 text-center">
         <div className="mx-auto w-full max-w-[1600px] px-6 lg:px-10">
           <p className="text-sm font-semibold uppercase tracking-widest text-brand-accent">
             Les projets déjà réalisés
@@ -146,7 +146,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="pourquoi" className="py-16 text-center">
+      <section id="pourquoi" className="py-10 text-center">
         <div className="mx-auto w-[90%] max-w-6xl">
           <h2 className="section-heading">Pourquoi Choisir Sierra Logistics ?</h2>
           <div className="mt-10 flex flex-wrap justify-center gap-8">
@@ -157,7 +157,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="quick-quote" className="bg-muted py-16 text-center">
+      <section id="quick-quote" className="bg-muted py-10 text-center">
         <div className="mx-auto w-[90%] max-w-6xl">
           <h2 className="section-heading">Obtenez Votre Devis Rapidement</h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
@@ -172,7 +172,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="partners" className="py-16 text-center">
+      <section id="partners" className="py-10 text-center">
         <div className="mx-auto w-[90%] max-w-6xl">
           <h2 className="section-heading">Ils nous font confiance</h2>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-8">
