@@ -133,6 +133,13 @@
   }
 }
 
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+}
+
 @layer components {
   .section-heading {
     @apply relative inline-block pb-2.5 text-3xl font-bold text-primary md:text-4xl;

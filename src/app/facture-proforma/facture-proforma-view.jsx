@@ -83,12 +83,21 @@ export function FactureProformaView() {
   }
 
   return (
-    <div className="mx-auto my-10 w-[90%] max-w-4xl rounded-lg bg-background p-8 shadow-md print:shadow-none">
-      <div className="mb-8 flex justify-between border-b-2 border-primary pb-5">
+    <div className="mx-auto my-10 w-[90%] max-w-4xl rounded-lg bg-background p-8 shadow-md print:my-0 print:w-full print:max-w-none print:rounded-none print:p-10 print:shadow-none">
+      <div className="mb-8 flex justify-between border-b-2 border-primary pb-5 print:mb-4">
         <div>
-          <h1 className="text-2xl font-bold text-primary">
-            {isDefinitive ? "FACTURE DÉFINITIVE" : "FACTURE PROFORMA"}
-          </h1>
+          <div className="mb-2 flex items-center gap-3">
+            <Image
+              src="/images/sierra-logistics-logo-header.png"
+              alt="Sierra Logistics"
+              width={187}
+              height={95}
+              className="h-12 w-auto object-contain"
+            />
+            <h1 className="text-2xl font-bold text-primary">
+              {isDefinitive ? "FACTURE DÉFINITIVE" : "FACTURE PROFORMA"}
+            </h1>
+          </div>
           <p>
             <strong>N&deg;:</strong> {quote.id?.split("-")[0]}
           </p>
@@ -105,15 +114,14 @@ export function FactureProformaView() {
           </span>
         </div>
         <div className="text-right">
-          <Image src="/images/logo.png" alt="Logo Sierra Logistics" width={120} height={40} />
-          <p className="mt-2">
+          <p>
             <strong>Statut:</strong> {isDefinitive ? "Validée" : "En attente"}
           </p>
         </div>
       </div>
 
-      <section className="mb-8">
-        <div className="mb-4 rounded bg-primary px-4 py-2 font-semibold text-primary-foreground">
+      <section className="mb-8 print:mb-4">
+        <div className="mb-4 rounded bg-primary px-4 py-2 font-semibold text-primary-foreground print:mb-2">
           INFORMATIONS CLIENT
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -136,8 +144,8 @@ export function FactureProformaView() {
         </div>
       </section>
 
-      <section className="mb-8">
-        <div className="mb-4 rounded bg-primary px-4 py-2 font-semibold text-primary-foreground">
+      <section className="mb-8 print:mb-4">
+        <div className="mb-4 rounded bg-primary px-4 py-2 font-semibold text-primary-foreground print:mb-2">
           DÉTAILS DE L&apos;EXPÉDITION
         </div>
         <table className="w-full border-collapse text-left text-sm">
@@ -145,6 +153,7 @@ export function FactureProformaView() {
             <tr className="bg-muted">
               <th className="p-3">Ville départ</th>
               <th className="p-3">Ville arrivée</th>
+              <th className="p-3">Km</th>
               <th className="p-3">Type marchandise</th>
               <th className="p-3">Poids</th>
               <th className="p-3">Type camion</th>
@@ -154,6 +163,7 @@ export function FactureProformaView() {
             <tr className="border-b">
               <td className="p-3">{quote.ville_depart || "-"}</td>
               <td className="p-3">{quote.ville_arrivee || "-"}</td>
+              <td className="p-3">{quote.distance ? `${formatNumber(quote.distance)} km` : "-"}</td>
               <td className="p-3">{quote.type_marchandise || "-"}</td>
               <td className="p-3">{quote.poids ? `${formatNumber(quote.poids)} kg` : "-"}</td>
               <td className="p-3">{quote.type_vehicle || "-"}</td>
@@ -162,8 +172,8 @@ export function FactureProformaView() {
         </table>
       </section>
 
-      <section className="mb-8">
-        <div className="mb-4 rounded bg-primary px-4 py-2 font-semibold text-primary-foreground">
+      <section className="mb-8 print:mb-4">
+        <div className="mb-4 rounded bg-primary px-4 py-2 font-semibold text-primary-foreground print:mb-2">
           INFORMATIONS TARIFAIRES
         </div>
         <table className="w-full text-sm">
@@ -197,8 +207,8 @@ export function FactureProformaView() {
       </section>
 
       {isDefinitive && commande && (
-        <section className="mb-8">
-          <div className="mb-4 rounded bg-primary px-4 py-2 font-semibold text-primary-foreground">
+        <section className="mb-8 print:mb-4">
+          <div className="mb-4 rounded bg-primary px-4 py-2 font-semibold text-primary-foreground print:mb-2">
             EXÉCUTION DE LA COMMANDE
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
