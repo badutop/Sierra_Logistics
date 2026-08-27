@@ -124,10 +124,10 @@ export function SiteHeader() {
 
         <button
           aria-label="Ouvrir le menu"
-          className="text-primary md:hidden"
+          className="flex size-10 items-center justify-center rounded-md bg-brand-accent text-brand-accent-foreground transition-opacity hover:opacity-90 md:hidden"
           onClick={() => setMobileOpen((v) => !v)}
         >
-          {mobileOpen ? <X className="size-7" /> : <Menu className="size-7" />}
+          {mobileOpen ? <X className="size-6" /> : <Menu className="size-6" />}
         </button>
       </nav>
 
