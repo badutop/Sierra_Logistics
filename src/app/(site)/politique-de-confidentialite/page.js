@@ -81,11 +81,11 @@ export default function PolitiqueConfidentialitePage() {
 
           <h2>4. Où sont stockées vos données ?</h2>
           <p>
-            Vos données sont stockées dans une base de données Supabase
-            (PostgreSQL), protégée par des règles d&apos;accès (Row Level
-            Security) et transmises de manière chiffrée (HTTPS). L&apos;accès aux
-            informations sensibles, telles que l&apos;attribution d&apos;un
-            chauffeur à une commande, est restreint à nos systèmes internes.
+            Vos données sont stockées dans une base de données MySQL,
+            hébergée sur nos serveurs, et transmises de manière chiffrée
+            (HTTPS). L&apos;accès aux informations sensibles, telles que
+            l&apos;attribution d&apos;un chauffeur à une commande, est
+            restreint aux comptes autorisés de notre équipe.
           </p>
 
           <h2>5. Partage de vos données</h2>

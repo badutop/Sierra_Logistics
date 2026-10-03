@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
-import { calculerDevis, VILLES_SENEGAL } from "@/lib/pricing";
+import { createQuote } from "@/api/client";
+import { VILLES_SENEGAL } from "@/lib/pricing";
 import { TRUCK_TYPES } from "@/lib/truckTypes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,12 +39,14 @@ const initialState = {
   typeCamion: "",
   dateExpedition: "",
   infosAdditionnelles: "",
+  website: "",
 };
 
 export function DevisForm() {
   const router = useRouter();
   const [form, setForm] = useState(initialState);
   const [error, setError] = useState(null);
+  const [fieldErrors, setFieldErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
 
   const update = (field) => (value) => setForm((f) => ({ ...f, [field]: value }));
@@ -52,6 +54,7 @@ export function DevisForm() {
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
+    setFieldErrors({});
 
     if (!form.villeDepart || !form.villeArrivee || !form.typeCamion || !form.poids) {
       setError("Veuillez compléter tous les champs requis.");
@@ -60,46 +63,24 @@ export function DevisForm() {
 
     setSubmitting(true);
     try {
-      const calcul = calculerDevis({
-        villeDepart: form.villeDepart,
-        villeArrivee: form.villeArrivee,
-        typeCamion: form.typeCamion,
+      const quote = await createQuote({
+        nom: form.nom,
+        email: form.email,
+        telephone: form.telephone,
+        ville_depart: form.villeDepart,
+        ville_arrivee: form.villeArrivee,
+        type_marchandise: form.typeMarchandise,
+        poids: Number(form.poids) || 0,
+        type_vehicle: form.typeCamion,
+        date_expedition: form.dateExpedition,
+        infos_additionnelles: form.infosAdditionnelles,
+        website: form.website,
       });
 
-      const { data: quote, error: insertError } = await supabase
-        .from("quotes")
-        .insert([
-          {
-            nom: form.nom,
-            email: form.email,
-            telephone: form.telephone,
-            ville_depart: form.villeDepart,
-            ville_arrivee: form.villeArrivee,
-            type_marchandise: form.typeMarchandise,
-            poids: Number(form.poids) || 0,
-            type_vehicle: form.typeCamion,
-            date_expedition: form.dateExpedition,
-            infos_additionnelles: form.infosAdditionnelles,
-            distance: calcul.distance,
-            zone: calcul.zone,
-            tarif_zone: calcul.tarifZone,
-            coefficient_camion: calcul.coefficientCamion,
-            montant_transport: calcul.montantTransport,
-            majoration: calcul.majoration,
-            sous_total: calcul.sousTotal,
-            tva: calcul.tva,
-            total: calcul.total,
-            created_at: new Date().toISOString(),
-            statut: "en_attente",
-          },
-        ])
-        .select();
-
-      if (insertError) throw insertError;
-
-      router.push(`/facture-proforma?id=${quote[0].id}`);
+      router.push(`/facture-proforma?id=${quote.id}`);
     } catch (err) {
       setError(err.message);
+      if (err.fieldErrors) setFieldErrors(err.fieldErrors);
     } finally {
       setSubmitting(false);
     }
@@ -115,11 +96,23 @@ export function DevisForm() {
           <RequiredMark /> Champs obligatoires
         </p>
 
+        <input
+          type="text"
+          name="website"
+          value={form.website}
+          onChange={(e) => update("website")(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="hidden"
+        />
+
         <div className="space-y-2">
           <Label htmlFor="nom">
             Nom Complet <RequiredMark />
           </Label>
           <Input id="nom" required value={form.nom} onChange={(e) => update("nom")(e.target.value)} />
+          {fieldErrors.nom && <p className="text-sm text-destructive">{fieldErrors.nom}</p>}
         </div>
 
         <div className="space-y-2">
@@ -133,6 +126,7 @@ export function DevisForm() {
             value={form.email}
             onChange={(e) => update("email")(e.target.value)}
           />
+          {fieldErrors.email && <p className="text-sm text-destructive">{fieldErrors.email}</p>}
         </div>
 
         <div className="space-y-2">
@@ -146,6 +140,7 @@ export function DevisForm() {
             value={form.telephone}
             onChange={(e) => update("telephone")(e.target.value)}
           />
+          {fieldErrors.telephone && <p className="text-sm text-destructive">{fieldErrors.telephone}</p>}
         </div>
 
         <div className="space-y-2">
@@ -164,6 +159,7 @@ export function DevisForm() {
               ))}
             </SelectContent>
           </Select>
+          {fieldErrors.ville_depart && <p className="text-sm text-destructive">{fieldErrors.ville_depart}</p>}
         </div>
 
         <div className="space-y-2">
@@ -182,6 +178,7 @@ export function DevisForm() {
               ))}
             </SelectContent>
           </Select>
+          {fieldErrors.ville_arrivee && <p className="text-sm text-destructive">{fieldErrors.ville_arrivee}</p>}
         </div>
 
         <div className="space-y-2">
@@ -200,6 +197,7 @@ export function DevisForm() {
               ))}
             </SelectContent>
           </Select>
+          {fieldErrors.type_marchandise && <p className="text-sm text-destructive">{fieldErrors.type_marchandise}</p>}
         </div>
 
         <div className="space-y-2">
@@ -214,6 +212,7 @@ export function DevisForm() {
             value={form.poids}
             onChange={(e) => update("poids")(e.target.value)}
           />
+          {fieldErrors.poids && <p className="text-sm text-destructive">{fieldErrors.poids}</p>}
         </div>
 
         <div className="space-y-2">
@@ -232,6 +231,7 @@ export function DevisForm() {
               ))}
             </SelectContent>
           </Select>
+          {fieldErrors.type_vehicle && <p className="text-sm text-destructive">{fieldErrors.type_vehicle}</p>}
         </div>
 
         <div className="space-y-2">
@@ -245,6 +245,7 @@ export function DevisForm() {
             value={form.dateExpedition}
             onChange={(e) => update("dateExpedition")(e.target.value)}
           />
+          {fieldErrors.date_expedition && <p className="text-sm text-destructive">{fieldErrors.date_expedition}</p>}
         </div>
 
         <div className="space-y-2">

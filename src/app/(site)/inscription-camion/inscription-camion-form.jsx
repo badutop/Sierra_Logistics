@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { registerVehicle } from "@/api/client";
 import { TRUCK_TYPES } from "@/lib/truckTypes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,37 +28,44 @@ const initialState = {
   fuelType: "Diesel",
   status: "disponible",
   contactPhone: "",
+  website: "",
 };
 
 export function InscriptionCamionForm() {
   const [form, setForm] = useState(initialState);
   const [status, setStatus] = useState(null);
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
 
   const update = (field) => (value) => setForm((f) => ({ ...f, [field]: value }));
 
   async function handleSubmit(e) {
     e.preventDefault();
     setStatus(null);
+    setFieldErrors({});
+    setSubmitting(true);
 
-    const { error } = await supabase.from("vehicles").insert([
-      {
+    try {
+      await registerVehicle({
         name: form.name,
         model: form.model,
         license_plate: form.licensePlate,
         fuel_type: form.fuelType,
         status: form.status,
         contact_phone: form.contactPhone,
-      },
-    ]);
+        website: form.website,
+      });
 
-    if (error) {
-      setStatus({ type: "error", message: error.message });
-    } else {
       setStatus({
         type: "success",
         message: "Votre inscription a été soumise avec succès ! Notre équipe vous contactera bientôt.",
       });
       setForm(initialState);
+    } catch (err) {
+      setStatus({ type: "error", message: err.message });
+      if (err.fieldErrors) setFieldErrors(err.fieldErrors);
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -72,6 +79,17 @@ export function InscriptionCamionForm() {
           <RequiredMark /> Champs obligatoires
         </p>
 
+        <input
+          type="text"
+          name="website"
+          value={form.website}
+          onChange={(e) => update("website")(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="hidden"
+        />
+
         <div className="space-y-2">
           <Label htmlFor="truck-name">
             Nom du Propriétaire <RequiredMark />
@@ -82,6 +100,7 @@ export function InscriptionCamionForm() {
             value={form.name}
             onChange={(e) => update("name")(e.target.value)}
           />
+          {fieldErrors.name && <p className="text-sm text-destructive">{fieldErrors.name}</p>}
         </div>
 
         <div className="space-y-2">
@@ -100,6 +119,7 @@ export function InscriptionCamionForm() {
               ))}
             </SelectContent>
           </Select>
+          {fieldErrors.model && <p className="text-sm text-destructive">{fieldErrors.model}</p>}
         </div>
 
         <div className="space-y-2">
@@ -112,6 +132,7 @@ export function InscriptionCamionForm() {
             value={form.licensePlate}
             onChange={(e) => update("licensePlate")(e.target.value)}
           />
+          {fieldErrors.license_plate && <p className="text-sm text-destructive">{fieldErrors.license_plate}</p>}
         </div>
 
         <div className="space-y-2">
@@ -157,10 +178,11 @@ export function InscriptionCamionForm() {
             value={form.contactPhone}
             onChange={(e) => update("contactPhone")(e.target.value)}
           />
+          {fieldErrors.contact_phone && <p className="text-sm text-destructive">{fieldErrors.contact_phone}</p>}
         </div>
 
-        <Button type="submit" size="lg" className="bg-brand-accent text-brand-accent-foreground hover:bg-brand-accent/90">
-          Soumettre l&apos;Inscription
+        <Button type="submit" size="lg" disabled={submitting} className="bg-brand-accent text-brand-accent-foreground hover:bg-brand-accent/90">
+          {submitting ? "Envoi en cours..." : "Soumettre l'Inscription"}
         </Button>
       </form>
 

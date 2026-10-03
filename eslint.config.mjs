@@ -10,6 +10,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Projet PHP séparé (plugin/thème WordPress), avec son propre outillage
+    // (PHPCS/PHPUnit, voir wordpress/wp-content/plugins/sierra-logistics-core).
+    "wordpress/**",
   ]),
 ]);
 

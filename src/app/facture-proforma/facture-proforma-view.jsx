@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { supabase } from "@/lib/supabaseClient";
+import { getQuote, getCommandeByProforma } from "@/api/client";
 import { formatNumber } from "@/lib/pricing";
 import { Button } from "@/components/ui/button";
 
 export function FactureProformaView() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const quoteId = searchParams.get("id");
   const isDefinitive = searchParams.get("definitive") === "true";
@@ -16,58 +15,29 @@ export function FactureProformaView() {
   const [quote, setQuote] = useState(null);
   const [commande, setCommande] = useState(null);
   const [error, setError] = useState(null);
-  const [validating, setValidating] = useState(false);
 
   useEffect(() => {
     if (!quoteId) return;
 
     (async () => {
-      const { data, error: quoteError } = await supabase
-        .from("quotes")
-        .select("*")
-        .eq("id", quoteId)
-        .maybeSingle();
-
-      if (quoteError || !data) {
-        setError(quoteError?.message || "Devis introuvable");
+      try {
+        const data = await getQuote(quoteId);
+        setQuote(data);
+      } catch (err) {
+        setError(err.status === 404 ? "Devis introuvable" : err.message);
         return;
       }
-      setQuote(data);
 
       if (isDefinitive) {
-        const res = await fetch(`/api/commandes?proformaId=${quoteId}`);
-        const body = await res.json();
-
-        if (!res.ok) {
-          setError(body.error);
-          return;
+        try {
+          const data = await getCommandeByProforma(quoteId);
+          setCommande(data);
+        } catch {
+          // Pas encore de commande associée : reste affiché comme proforma.
         }
-        setCommande(body.commande);
       }
     })();
   }, [quoteId, isDefinitive]);
-
-  async function validerCommande() {
-    if (!window.confirm("Valider cette commande ?")) return;
-
-    setValidating(true);
-    try {
-      const res = await fetch("/api/commandes/valider", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ quoteId }),
-      });
-      const body = await res.json();
-
-      if (!res.ok) throw new Error(body.error);
-
-      router.push(`/facture-proforma?id=${quoteId}&definitive=true`);
-    } catch (err) {
-      window.alert(`Erreur de validation: ${err.message}`);
-    } finally {
-      setValidating(false);
-    }
-  }
 
   if (!quoteId || error) {
     return (
@@ -99,7 +69,7 @@ export function FactureProformaView() {
             </h1>
           </div>
           <p>
-            <strong>N&deg;:</strong> {quote.id?.split("-")[0]}
+            <strong>N&deg;:</strong> {quote.invoice_number || quote.id?.split("-")[0]}
           </p>
           <p>
             <strong>Date:</strong>{" "}
@@ -239,15 +209,6 @@ export function FactureProformaView() {
         <Button variant="outline" onClick={() => window.print()}>
           Imprimer
         </Button>
-        {!isDefinitive && (
-          <Button
-            onClick={validerCommande}
-            disabled={validating}
-            className="bg-brand-accent text-brand-accent-foreground hover:bg-brand-accent/90"
-          >
-            {validating ? "Validation..." : "Valider la commande"}
-          </Button>
-        )}
       </div>
     </div>
   );

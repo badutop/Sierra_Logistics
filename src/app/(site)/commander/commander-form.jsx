@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
+import { lookupQuoteByTelephone } from "@/api/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,25 +26,14 @@ export function CommanderForm() {
     }
 
     setSearching(true);
-    const { data, error: searchError } = await supabase
-      .from("quotes")
-      .select("id")
-      .eq("telephone", trimmed)
-      .order("created_at", { ascending: false })
-      .limit(1);
-    setSearching(false);
-
-    if (searchError) {
-      setError(`Erreur lors de la recherche : ${searchError.message}`);
-      return;
+    try {
+      const { id } = await lookupQuoteByTelephone(trimmed);
+      router.push(`/facture-proforma?id=${id}`);
+    } catch (err) {
+      setError(err.status === 404 ? "Aucun devis trouvé pour ce numéro." : err.message);
+    } finally {
+      setSearching(false);
     }
-
-    if (!data?.length) {
-      setError("Aucun devis trouvé pour ce numéro.");
-      return;
-    }
-
-    router.push(`/facture-proforma?id=${data[0].id}`);
   }
 
   return (
