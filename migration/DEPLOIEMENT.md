@@ -38,10 +38,13 @@ uploadez son contenu dans `www/gestion/`, puis :
 
 1. Copiez `wordpress/wp-config.php` (ce dépôt) vers `www/gestion/wp-config.php`.
 2. Copiez `wordpress/wp-config-local.php.example` vers `www/gestion/wp-config-local.php`
-   et complétez-le avec les identifiants de la base (étape 1), `WP_HOME`
-   (`https://sous-domaine-temporaire.exemple.sn`), `WP_SITEURL`
-   (`https://sous-domaine-temporaire.exemple.sn/gestion`), `WP_ENVIRONMENT_TYPE=production`,
-   et des clés de sécurité générées sur
+   et complétez-le avec les identifiants de la base (étape 1), `WP_HOME` et
+   `WP_SITEURL` (**identiques**, tous deux `https://sous-domaine-temporaire.exemple.sn/gestion`
+   - voir le commentaire dans le fichier modèle : WordPress doit reconnaître
+   son propre sous-dossier pour que l'API REST et les permaliens
+   fonctionnent), `SIERRA_FRONT_URL` (`https://sous-domaine-temporaire.exemple.sn`,
+   l'URL du front, utilisée par le plugin/thème à la place de `WP_HOME`),
+   `WP_ENVIRONMENT_TYPE=production`, et des clés de sécurité générées sur
    https://api.wordpress.org/secret-key/1.1/salt/. Ce fichier ne doit jamais
    être commité (déjà dans `.gitignore`).
 3. Visitez `https://sous-domaine-temporaire.exemple.sn/gestion/wp-admin/install.php`
@@ -162,11 +165,18 @@ plugin) : aucune URL absolue n'est jamais écrite en dur.
   puisque le front et WordPress sont servis par le même domaine. `NEXT_PUBLIC_SITE_URL`
   (métadonnées, sitemap, robots) et `NEXT_PUBLIC_ALLOW_INDEXING` sont les deux
   seules variables d'environnement liées au domaine, lues au build.
-- **WordPress** : `WP_HOME` et `WP_SITEURL` viennent du fichier de config non
-  versionné (`.env` / `wp-config-local.php`), jamais codés dans `wp-config.php`
-  lui-même. Le plugin ne stocke aucune URL absolue en base : toute URL affichée
-  (lien de facture dans un e-mail, PDF, etc.) est reconstruite à la volée avec
-  `home_url()`, `rest_url()`, `admin_url()` et `wp_upload_dir()`.
+- **WordPress** : `WP_HOME`, `WP_SITEURL` et `SIERRA_FRONT_URL` viennent du
+  fichier de config non versionné (`wp-config-local.php`), jamais codés dans
+  `wp-config.php` lui-même. `WP_HOME` et `WP_SITEURL` doivent être
+  **identiques** (l'URL de WordPress, `/gestion`) - WordPress dérive de
+  `WP_HOME` le préfixe à retirer d'une requête entrante pour reconnaître ses
+  propres routes (API REST, permaliens) ; s'ils diffèrent, WordPress ne
+  reconnaît jamais son sous-dossier et redirige tout vers la racine (bug
+  rencontré et corrigé lors du premier déploiement réel). `SIERRA_FRONT_URL`
+  donne séparément l'URL du front : le plugin et le thème l'utilisent via
+  `Formatting::front_url()` pour tout lien vers le site public (jamais
+  `home_url()` pour ça), et `rest_url()` / `admin_url()` / `wp_upload_dir()`
+  pour tout le reste.
 - **CORS, expéditeur d'e-mail, coordonnées sur les PDF** : dans les réglages
   du plugin (page "Sierra Logistics > Réglages"), jamais dans le code.
 
@@ -223,11 +233,11 @@ automatique). Vérifier qu'il est actif (cadenas HTTPS) avant de continuer.
 
 ### 2. Mettre à jour les variables d'environnement
 
-- **WordPress** (`wordpress/wp-config-local.php` ou `.env` sur le serveur,
-  jamais commité) :
+- **WordPress** (`wp-config-local.php` sur le serveur, jamais commité) :
   ```
-  WP_HOME=https://votre-domaine-definitif.sn
+  WP_HOME=https://votre-domaine-definitif.sn/gestion
   WP_SITEURL=https://votre-domaine-definitif.sn/gestion
+  SIERRA_FRONT_URL=https://votre-domaine-definitif.sn
   ```
 - **Front** (variables d'environnement du build, pas dans le code) :
   ```
