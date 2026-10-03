@@ -201,7 +201,7 @@ class Quotes_Page {
 					</form>
 
 					<p style="margin-top:1em;">
-						<a class="button" href="<?php echo esc_url( home_url( '/facture-proforma?id=' . $id . ( $commande ? '&definitive=true' : '' ) ) ); ?>" target="_blank">
+						<a class="button" href="<?php echo esc_url( Formatting::front_url( '/facture-proforma?id=' . $id . ( $commande ? '&definitive=true' : '' ) ) ); ?>" target="_blank">
 							<?php esc_html_e( 'Ouvrir la facture', 'sierra-logistics' ); ?>
 						</a>
 						<?php if ( current_user_can( 'sierra_manage_invoices' ) ) : ?>

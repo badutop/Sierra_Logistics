@@ -17,12 +17,19 @@ define( 'DB_HOST', 'à_completer' ); // Fourni par OVH, du type xxxxx.mysql.db.
 define( 'DB_CHARSET', 'utf8mb4' );
 define( 'DB_COLLATE', '' );
 
-// WP_HOME = racine du site (le front) ; WP_SITEURL = sous-dossier où vivent
-// les fichiers WordPress. Voir migration/DEPLOIEMENT.md pour la bascule
-// sous-domaine temporaire -> domaine définitif (seules ces deux lignes et
-// WP_ENVIRONMENT_TYPE changent, jamais le code).
-define( 'WP_HOME', 'https://votre-domaine.sn' );
+// WP_HOME doit être égal à WP_SITEURL (tous deux l'URL de WordPress,
+// /gestion) : WordPress dérive de WP_HOME le préfixe à retirer d'une requête
+// entrante pour reconnaître ses propres routes (API REST, permaliens). S'ils
+// diffèrent et que WP vit dans un sous-dossier, WordPress ne reconnaît
+// jamais ce sous-dossier et redirige tout vers la racine (constaté en
+// production). SIERRA_FRONT_URL donne séparément l'URL du front (la racine
+// du site) ; le plugin et le thème l'utilisent à la place de home_url() pour
+// tout lien vers le site public (e-mails, PDF, logo de connexion...).
+// Voir migration/DEPLOIEMENT.md pour la bascule sous-domaine temporaire ->
+// domaine définitif (seules ces lignes et WP_ENVIRONMENT_TYPE changent).
+define( 'WP_HOME', 'https://votre-domaine.sn/gestion' );
 define( 'WP_SITEURL', 'https://votre-domaine.sn/gestion' );
+define( 'SIERRA_FRONT_URL', 'https://votre-domaine.sn' );
 define( 'WP_ENVIRONMENT_TYPE', 'production' );
 
 // Générez huit valeurs uniques sur

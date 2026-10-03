@@ -47,4 +47,22 @@ class Formatting {
 			return '-';
 		}
 	}
+
+	/**
+	 * URL du front public (jamais home_url() : WordPress vit dans un
+	 * sous-dossier dont l'URL doit rester dans le chemin pour que son propre
+	 * routage interne (API REST, permaliens) fonctionne. WordPress dérive le
+	 * préfixe à retirer d'une requête entrante de WP_HOME, qui n'a pas de
+	 * chemin ; si WP_HOME pointait vers la racine du front comme avant, WP ne
+	 * reconnaîtrait jamais "/gestion/" comme son propre préfixe d'installation
+	 * et casserait le routage de /gestion/wp-json/... (constaté en
+	 * production). WP_HOME doit donc être égal à WP_SITEURL, et c'est cette
+	 * constante, définie dans wp-config-local.php, qui donne l'URL du front.
+	 *
+	 * @param string $path Chemin relatif à ajouter (ex. "/facture-proforma?id=...").
+	 */
+	public static function front_url( string $path = '' ): string {
+		$base = defined( 'SIERRA_FRONT_URL' ) ? SIERRA_FRONT_URL : home_url();
+		return rtrim( $base, '/' ) . '/' . ltrim( $path, '/' );
+	}
 }

@@ -17,8 +17,16 @@ define( 'DB_HOST', getenv( 'DB_HOST' ) ?: 'db' );
 define( 'DB_CHARSET', 'utf8mb4' );
 define( 'DB_COLLATE', '' );
 
-define( 'WP_HOME', getenv( 'WP_HOME' ) ?: 'http://localhost:8080' );
+// WP_HOME doit être égal à WP_SITEURL : WordPress dérive de WP_HOME le
+// préfixe à retirer d'une requête entrante pour reconnaître ses propres
+// routes (API REST, permaliens). S'ils diffèrent et que WP vit dans un
+// sous-dossier, WordPress ne reconnaît jamais ce sous-dossier et redirige
+// tout vers la racine (constaté en production, voir migration/AUDIT.md).
+// SIERRA_FRONT_URL donne séparément l'URL du front, utilisée par le plugin
+// et le thème à la place de home_url() pour tout lien vers le site public.
+define( 'WP_HOME', getenv( 'WP_SITEURL' ) ?: 'http://localhost:8080/gestion' );
 define( 'WP_SITEURL', getenv( 'WP_SITEURL' ) ?: 'http://localhost:8080/gestion' );
+define( 'SIERRA_FRONT_URL', getenv( 'WP_HOME' ) ?: 'http://localhost:8080' );
 define( 'WP_ENVIRONMENT_TYPE', getenv( 'WP_ENVIRONMENT_TYPE' ) ?: 'local' );
 
 // Clés de sécurité : valeurs fixes, sans enjeu sur un environnement de

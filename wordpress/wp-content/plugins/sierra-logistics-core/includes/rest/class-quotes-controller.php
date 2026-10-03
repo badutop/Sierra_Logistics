@@ -8,6 +8,7 @@
 namespace SierraLogistics\Rest;
 
 use SierraLogistics\Data\Villes_Senegal;
+use SierraLogistics\Formatting;
 use SierraLogistics\Pricing;
 use SierraLogistics\Settings;
 use SierraLogistics\Repositories\Quotes_Repository;
@@ -272,7 +273,7 @@ class Quotes_Controller {
 	 * @param array $quote Devis venant d'être créé.
 	 */
 	private static function send_notifications( array $quote ): void {
-		$invoice_url  = home_url( '/facture-proforma?id=' . $quote['id'] );
+		$invoice_url  = Formatting::front_url( '/facture-proforma?id=' . $quote['id'] );
 		$from_name    = Settings::get( 'email_from_name', 'Sierra Logistics' );
 		$from_address = Settings::get( 'email_from_address' );
 		$headers      = array();

@@ -8,5 +8,5 @@
  * @package SierraGestion
  */
 
-wp_safe_redirect( home_url( '/' ), 301 );
+wp_safe_redirect( sierra_gestion_front_url(), 301 );
 exit;

@@ -1,10 +1,18 @@
 # .htaccess racine du site (www/), à côté du dossier gestion/.
 #
-# Next.js exporte des fichiers .html (ex: devis.html pour la route /devis),
-# jamais /devis/index.html : sans la règle ci-dessous, visiter /devis
-# renverrait une 404 Apache. MultiViews fait la correspondance extension
-# automatiquement.
-Options +MultiViews
+# Jamais de listing de répertoire : Next.js exporte, pour chaque route, à la
+# fois un fichier devis.html ET un dossier devis/ (contenant les payloads RSC
+# .txt, pas d'index.html) - sans Options -Indexes, visiter /devis/ afficherait
+# la liste des fichiers de ce dossier au lieu de la page.
+Options -Indexes
+
+# Sans ça, Apache (mod_dir) redirige /devis vers /devis/ avant même que les
+# règles de réécriture ci-dessous aient leur mot à dire, dès qu'un dossier
+# devis/ existe à côté de devis.html (systématique avec l'export Next.js,
+# voir plus bas).
+<IfModule mod_dir.c>
+	DirectorySlash Off
+</IfModule>
 
 RewriteEngine On
 
@@ -17,6 +25,15 @@ RewriteRule ^ - [L]
 # (redirects() n'est pas compatible avec l'export statique, voir
 # migration/DEPLOIEMENT.md - "Principe directeur : zéro URL en dur").
 RewriteRule ^expedier/?$ /devis [R=301,L]
+
+# Sert explicitement fichier.html pour une URL "propre" /fichier, avant que
+# Apache ne tente de résoudre /fichier comme un répertoire (ce qui, avec
+# Next.js, matche toujours un dossier RSC homonyme et provoquerait un
+# redirect vers fichier/ puis un 404/listing, cf. ci-dessus). Remplace
+# l'ancienne approche par Options +MultiViews, insuffisante dans ce cas.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
 
 # --- SIERRA NOINDEX (sous-domaine temporaire) ------------------------------
 # À SUPPRIMER (ou commenter) lors de la bascule vers le domaine définitif,
