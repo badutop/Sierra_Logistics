@@ -1,0 +1,42 @@
+/* Personnalisation de l'écran de connexion wp-admin aux couleurs Sierra
+   Logistics (mêmes couleurs que le reste du site : #73ba09 / #111111). */
+
+body.login {
+	background: #111111;
+}
+
+.login h1 a {
+	background-size: contain;
+	width: 187px;
+	height: 95px;
+	margin-bottom: 16px;
+}
+
+.login form {
+	border-top: 4px solid #73ba09;
+	border-radius: 6px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.login .button-primary {
+	background: #73ba09;
+	border-color: #5c9407;
+	text-shadow: none;
+	box-shadow: none;
+}
+
+.login .button-primary:hover,
+.login .button-primary:focus {
+	background: #5c9407;
+	border-color: #5c9407;
+}
+
+.login #nav a,
+.login #backtoblog a {
+	color: #d9d9d9;
+}
+
+.login #nav a:hover,
+.login #backtoblog a:hover {
+	color: #ffffff;
+}
