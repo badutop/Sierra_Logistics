@@ -1,0 +1,28 @@
+# .htaccess racine du site (www/), à côté du dossier gestion/.
+#
+# Next.js exporte des fichiers .html (ex: devis.html pour la route /devis),
+# jamais /devis/index.html : sans la règle ci-dessous, visiter /devis
+# renverrait une 404 Apache. MultiViews fait la correspondance extension
+# automatiquement.
+Options +MultiViews
+
+RewriteEngine On
+
+# Ne jamais interférer avec /gestion/ : WordPress y a son propre .htaccess,
+# qui doit rester seul maître de ses propres règles de réécriture.
+RewriteCond %{REQUEST_URI} ^/gestion/ [NC]
+RewriteRule ^ - [L]
+
+# Ancienne redirection /expedier -> /devis, portée depuis next.config.mjs
+# (redirects() n'est pas compatible avec l'export statique, voir
+# migration/DEPLOIEMENT.md - "Principe directeur : zéro URL en dur").
+RewriteRule ^expedier/?$ /devis [R=301,L]
+
+# --- SIERRA NOINDEX (sous-domaine temporaire) ------------------------------
+# À SUPPRIMER (ou commenter) lors de la bascule vers le domaine définitif,
+# voir migration/DEPLOIEMENT.md - section "Bascule vers le domaine définitif"
+# - étape 6. Simple modification de ce fichier via FTP, aucun rebuild.
+<IfModule mod_headers.c>
+	Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
+# --- FIN SIERRA NOINDEX -----------------------------------------------------

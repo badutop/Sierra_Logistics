@@ -1,0 +1,42 @@
+<?php
+/**
+ * Modèle pour wp-config-local.php en production.
+ *
+ * Copiez ce fichier en wp-config-local.php sur le serveur OVH (par SFTP
+ * direct, jamais par git) et complétez les valeurs réelles. Une fois copié,
+ * ce fichier ne doit jamais être commité ni transmis autrement - voir
+ * migration/DEPLOIEMENT.md.
+ *
+ * @package SierraGestion
+ */
+
+define( 'DB_NAME', 'à_completer' );
+define( 'DB_USER', 'à_completer' );
+define( 'DB_PASSWORD', 'à_completer' );
+define( 'DB_HOST', 'à_completer' ); // Fourni par OVH, du type xxxxx.mysql.db.
+define( 'DB_CHARSET', 'utf8mb4' );
+define( 'DB_COLLATE', '' );
+
+// WP_HOME = racine du site (le front) ; WP_SITEURL = sous-dossier où vivent
+// les fichiers WordPress. Voir migration/DEPLOIEMENT.md pour la bascule
+// sous-domaine temporaire -> domaine définitif (seules ces deux lignes et
+// WP_ENVIRONMENT_TYPE changent, jamais le code).
+define( 'WP_HOME', 'https://votre-domaine.sn' );
+define( 'WP_SITEURL', 'https://votre-domaine.sn/gestion' );
+define( 'WP_ENVIRONMENT_TYPE', 'production' );
+
+// Générez huit valeurs uniques sur
+// https://api.wordpress.org/secret-key/1.1/salt/ - ne jamais réutiliser les
+// valeurs de l'environnement Docker local (docker/wp-config-local.php).
+define( 'AUTH_KEY', 'à_completer' );
+define( 'SECURE_AUTH_KEY', 'à_completer' );
+define( 'LOGGED_IN_KEY', 'à_completer' );
+define( 'NONCE_KEY', 'à_completer' );
+define( 'AUTH_SALT', 'à_completer' );
+define( 'SECURE_AUTH_SALT', 'à_completer' );
+define( 'LOGGED_IN_SALT', 'à_completer' );
+define( 'NONCE_SALT', 'à_completer' );
+
+$table_prefix = 'wp_';
+
+define( 'WP_DEBUG', false );
