@@ -54,3 +54,6 @@ docker/.env
 
 # Identifiants SFTP de déploiement
 migration/deploy.env
+
+# Artefacts PHPUnit
+wordpress/wp-content/plugins/*/.phpunit.result.cache
