@@ -32,6 +32,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# ...sauf les modèles destinés à être commités et copiés par chaque
+# développeur/déploiement (voir README.md, migration/DEPLOIEMENT.md).
+!.env.example
+!**/.env.example
 
 # vercel
 .vercel

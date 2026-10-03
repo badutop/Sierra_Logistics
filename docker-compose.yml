@@ -1,0 +1,68 @@
+name: sierra-logistics
+
+services:
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    env_file: ./docker/.env
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-wordpress}
+      MYSQL_USER: ${DB_USER:-wordpress}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-wordpress}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  wordpress:
+    image: wordpress:php8.2-apache
+    restart: unless-stopped
+    depends_on:
+      - db
+    env_file: ./docker/.env
+    volumes:
+      - wp_core:/var/www/html
+      - ./wordpress/wp-content/plugins/sierra-logistics-core:/var/www/html/wp-content/plugins/sierra-logistics-core
+      - ./wordpress/wp-content/themes/sierra-gestion:/var/www/html/wp-content/themes/sierra-gestion
+      - ./docker/wp-config-local.php:/var/www/html/wp-config-local.php
+      - ./wordpress/wp-config.php:/var/www/html/wp-config.php
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+    ports:
+      - "8081:80"
+
+  front:
+    image: node:20-alpine
+    restart: unless-stopped
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --hostname 0.0.0.0 --port 3000"
+    volumes:
+      - ./:/app
+      - front_node_modules:/app/node_modules
+      - front_next_cache:/app/.next
+    ports:
+      - "3000:3000"
+
+  proxy:
+    image: nginx:alpine
+    restart: unless-stopped
+    depends_on:
+      - wordpress
+      - front
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "8080:80"
+
+volumes:
+  db_data:
+  wp_core:
+  front_node_modules:
+  front_next_cache:
