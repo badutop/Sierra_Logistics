@@ -1,0 +1,75 @@
+.sierra-stat-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 12px;
+	margin: 16px 0 24px;
+}
+
+.sierra-stat-card {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 16px;
+}
+
+.sierra-stat-card__label {
+	margin: 0 0 4px;
+	color: #646970;
+	font-size: 13px;
+}
+
+.sierra-stat-card__value {
+	margin: 0;
+	font-size: 22px;
+	font-weight: 600;
+}
+
+.sierra-stat-card__hint {
+	margin: 4px 0 0;
+	color: #646970;
+	font-size: 12px;
+}
+
+.sierra-badge {
+	display: inline-block;
+	padding: 2px 8px;
+	border-radius: 3px;
+	font-size: 12px;
+	font-weight: 600;
+	color: #fff;
+}
+
+.sierra-badge--success {
+	background: #00a32a;
+}
+
+.sierra-badge--warning {
+	background: #dba617;
+}
+
+.sierra-detail-grid {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 16px;
+	align-items: start;
+}
+
+.sierra-detail-card {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 16px;
+}
+
+.sierra-history {
+	margin: 0;
+	padding-left: 18px;
+}
+
+.sierra-history li {
+	margin-bottom: 8px;
+}
+
+.sierra-link-danger {
+	color: #b32d2e;
+}

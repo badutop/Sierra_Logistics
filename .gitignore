@@ -42,3 +42,15 @@ supabase/.temp
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# WordPress plugin dependencies (reconstruites par composer install au déploiement,
+# voir migration/DEPLOIEMENT.md - jamais committées : dev (phpunit/phpcs) et prod
+# (Dompdf) n'ont pas leur place dans le dépôt)
+wordpress/wp-content/plugins/*/vendor/
+wordpress/**/wp-config-local.php
+
+# Docker local (secrets de dev uniquement, mais on n'en versionne pas quand même)
+docker/.env
+
+# Identifiants SFTP de déploiement
+migration/deploy.env

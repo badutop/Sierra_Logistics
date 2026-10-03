@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset name="SierraLogisticsCore">
+	<description>WordPress Coding Standards pour sierra-logistics-core.</description>
+
+	<file>.</file>
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/tests/*</exclude-pattern>
+
+	<arg name="extensions" value="php" />
+	<arg value="ps" />
+
+	<rule ref="WordPress">
+		<!-- Les tests PHPUnit (tests/) ne suivent pas les conventions WordPress,
+		     c'est un répertoire exclu ci-dessus, inutile de lister d'exceptions ici. -->
+	</rule>
+
+	<!-- Capabilities personnalisées du plugin, voir includes/class-capabilities.php -->
+	<rule ref="WordPress.WP.Capabilities">
+		<properties>
+			<property name="custom_capabilities" type="array">
+				<element value="sierra_view_dashboard" />
+				<element value="sierra_manage_quotes" />
+				<element value="sierra_validate_commande" />
+				<element value="sierra_view_commandes" />
+				<element value="sierra_manage_invoices" />
+				<element value="sierra_manage_vehicles" />
+				<element value="sierra_manage_settings" />
+				<element value="sierra_manage_accounts" />
+				<element value="sierra_import_export" />
+				<element value="sierra_delete_records" />
+			</property>
+		</properties>
+	</rule>
+</ruleset>
